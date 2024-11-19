@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:6000/batch-file-upload
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  batch:
+    jdbc:
+      initialize-schema: always
+      #When this property is set to always, Spring Batch automatically creates or re-creates its metadata tables in the database during application startup. These tables are used internally by Spring Batch to manage job execution details, step execution details, and other batch-related metadata. The metadata tables include: BATCH_JOB_INSTANCE BATCH_JOB_EXECUTION BATCH_JOB_EXECUTION_CONTEXT BATCH_STEP_EXECUTION And others. Alternative Values never: Disables schema initialization. embedded: Initializes the schema only for embedded databases like H2 or HSQLDB. on-startup: Initializes the schema only if no existing schema is detected.
+    job:
+      enabled: false
+      #Default Behavior: By default, Spring Batch automatically runs any job defined in the application context when the application starts.
+      #enabled: false: This configuration prevents automatic execution of batch jobs at startup, giving you manual control over when and how jobs are executed.
+      #When batch.job.enabled is set to false, Spring Batch skips the auto-execution phase during application startup. Jobs defined in the application context are still available, but they need to be triggered programmatically or via external means.
+server:
+  port: 9090
